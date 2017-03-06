@@ -5,6 +5,7 @@
 #include <vector>
 
 const int MAX_STATIONS  = 100000;
+const int MIN_CONNECTION_TIME = 600;
 const uint32_t INF = std::numeric_limits<uint32_t>::max();
 
 struct Connection {
@@ -49,7 +50,7 @@ struct CSA {
         for (size_t i = 0; i < timetable.connections.size(); ++i) {
             Connection connection = timetable.connections[i];
 
-            if (connection.departure_timestamp >= earliest_arrival[connection.departure_station] &&
+            if (connection.departure_timestamp >= earliest_arrival[connection.departure_station] + MIN_CONNECTION_TIME &&
                     connection.arrival_timestamp < earliest_arrival[connection.arrival_station]) {
                 earliest_arrival[connection.arrival_station] = connection.arrival_timestamp;
                 in_connection[connection.arrival_station] = i;
